@@ -1,32 +1,37 @@
-import { renderComponent , expect } from '../test_helper';
+import { renderComponent, expect } from '../test_helper';
 import CommentEditor from '../../src/components/comment_editor';
 
 describe('CommentEditor', () => {
-  let component
+  let component;
 
   beforeEach(() => {
     component = renderComponent(CommentEditor);
   });
 
-  it('has textarea lel', () => {
+  it('has correct class name', () => {
+    expect(component).to.have.class('comment-editor');
+  });
+
+  it('has text area', () => {
     expect(component.find('textarea')).to.exist;
   });
 
-  it('has button swet', () => {
+  it('has button', () => {
     expect(component.find('button')).to.exist;
   });
 
-  describe('Functionality', () => {
-    let component;
-
+  describe('Editing Text', () => {
     beforeEach(() => {
-      component = renderComponent(CommentEditor);
+      component.find('textarea').simulate('change', 'new comment string');
     });
 
-    it('textarea reflects text change', () => {
-      component.find('textarea').simulate('change', 'new comment');
-      expect(component.find('textarea')).to.contain('new comment');
+    it('shows text entered', () => {
+      expect(component.find('textarea')).to.have.value('new comment string');
+    });
+
+    it('clears input when submitted', () => {
+      component.simulate('submit');
+      expect(component.find('textarea')).to.have.value('');
     });
   });
-
 });
