@@ -10,7 +10,11 @@ describe('App', () => {
     component = renderComponent(App);
   });
 
-  it('shows comment box', () => {
+  it('shows comment editor', () => {
     expect(component.find('.comment-editor')).to.exist;
+  });
+
+  it('shows comment list', () => {
+    expect(component.find('.comment-list')).to.exist;
   });
 });

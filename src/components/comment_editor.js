@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-export default class CommentEditor extends Component {
+class CommentEditor extends Component {
   constructor(props) {
     super(props);
     this.state = { comment: '' };
@@ -12,6 +14,7 @@ export default class CommentEditor extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.addComment(this.state.comment);
     this.setState({ comment: '' });
   }
 
@@ -25,8 +28,12 @@ export default class CommentEditor extends Component {
           onChange={this.handleTextChange.bind(this)}
           value={this.state.comment}
         />
-        <button action="submit">Add Comment</button>
+        <div>
+          <button action="submit">Add Comment</button>
+        </div>
       </form>
     );
   }
 }
+
+export default connect(null, actions)(CommentEditor);
